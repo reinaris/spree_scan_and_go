@@ -1,5 +1,6 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  scan_and_go_input_was_empty: "The scan and go input was empty"
+  couldnt_handle_scan_and_go_input: "Sorry, we could not handle the scan and go input"
+  couldnt_find_order: "We could not find that order"
+  couldnt_find_shipment: "We could not find that shipment"
+  couldnt_find_user: "We could not find that user"
