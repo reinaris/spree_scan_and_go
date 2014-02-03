@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_scan_and_go'
   s.version     = '2.1.4'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.summary     = 'Use a barcode scanner to do stuff in your Spree shop'
+  s.description = 'Use a barcode scanner to find orders, shipments and users in your Spree shop'
   s.required_ruby_version = '>= 1.9.3'
 
   s.author    = 'Rein Aris'
