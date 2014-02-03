@@ -1,7 +1,11 @@
-SpreeScanAndGo
+Spree Scan And Go
 ==============
 
-Find shipments and orders with you barcode scanner.
+Find orders, shipments and users with you barcode scanner.
+This extension is usefull when you use a barcode scanner with you Spree shop.
+If you print a barcode to your printable orders or packing slips, you can easily scan this barcode to view the order or shipment in your Spree admin.
+
+Created for Spree 2-1-stable (2.1.4)
 
 Installation
 ------------
@@ -9,7 +13,7 @@ Installation
 Add spree_scan_and_go to your Gemfile:
 
 ```ruby
-gem 'spree_scan_and_go'
+gem 'spree_scan_and_go', github: 'reinaris/spree_scan_and_go'
 ```
 
 Bundle your dependencies and run the installation generator:
