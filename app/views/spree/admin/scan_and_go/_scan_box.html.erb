@@ -1,0 +1,7 @@
+<div class="scan-and-go-scan-box">
+  <%= form_tag(admin_scanandgo_redirect_path, method: "get") do %>
+    <%= label_tag :q, t(:scan_and_go) %>
+    <%= text_field_tag :scan_and_go %>
+    <%= submit_tag("Fakescan") %>
+  <% end %>
+</div>

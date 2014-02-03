@@ -1,0 +1,19 @@
+body {
+  padding-bottom: 100px
+}
+.scan-and-go-scan-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 54px;
+  width: 100%;
+  background: #eff5fc;
+  border-top: 1px solid #cee1f4;
+  text-align: center;
+  form {
+    padding-top: 10px;
+    label {
+      margin-right: 5px;
+    }
+  }
+}
