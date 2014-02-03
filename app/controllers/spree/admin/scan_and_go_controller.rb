@@ -5,7 +5,7 @@ module Spree
         sag_value = params[:scan_and_go_input]
 
         unless sag_value.blank?
-          if sag_value.include? "R"
+          if sag_value.starts_with? "R"
             # order
             order = Spree::Order.where(number: sag_value).first
             if order
@@ -21,7 +21,7 @@ module Spree
             else
               error = t(:couldnt_find_user)
             end            
-          elsif sag_value.include? "H"
+          elsif sag_value.starts_with? "H"
             # shipment, order
             shipment = Spree::Shipment.where(number: sag_value).first
             # as the shipment has no detail page, redirect to the order
