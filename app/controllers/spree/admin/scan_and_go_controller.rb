@@ -4,37 +4,30 @@ module Spree
       def redirect
         sag_value = params[:scan_and_go_input]
 
-        unless sag_value.blank?
-          if sag_value.starts_with? "R"
-            # order
-            order = Spree::Order.where(number: sag_value).first
-            if order
-              redirect = edit_admin_order_path(order)
-            else
-              error = t(:couldnt_find_order)
-            end
-          elsif sag_value.include? "@"
-            # user
-            user = Spree::User.where(email: sag_value).first
-            if user
-              redirect = edit_admin_user_path(user)
-            else
-              error = t(:couldnt_find_user)
-            end            
-          elsif sag_value.starts_with? "H"
-            # shipment, order
-            shipment = Spree::Shipment.where(number: sag_value).first
-            # as the shipment has no detail page, redirect to the order
-            if shipment and shipment.order
-              redirect = edit_admin_order_path(shipment.order)
-            else
-              error = t(:couldnt_find_shipment)
-            end
+        if sag_value.starts_with? "R"
+          # order
+          if order = Spree::Order.find_by(number: sag_value)
+            redirect = edit_admin_order_path(order)
           else
-            error = t(:couldnt_handle_scan_and_go_input)
+            error = t(:couldnt_find_order)
+          end
+        elsif sag_value.include? "@"
+          # user
+          if user = Spree::User.find_by(email: sag_value)
+            redirect = edit_admin_user_path(user)
+          else
+            error = t(:couldnt_find_user)
+          end            
+        elsif sag_value.starts_with? "H"
+          # shipment, order
+          if shipment = Spree::Shipment.find_by(number: sag_value) and shipment.order
+            # as the shipment has no detail page, redirect to the order
+            redirect = edit_admin_order_path(shipment.order)
+          else
+            error = t(:couldnt_find_shipment)
           end
         else
-          error = t(:scan_and_go_input_was_empty)          
+          error = t(:couldnt_handle_scan_and_go_input)
         end
 
         if error
