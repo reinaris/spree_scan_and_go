@@ -1,5 +1,4 @@
 en:
-  scan_and_go_input_was_empty: "The scan and go input was empty"
   couldnt_handle_scan_and_go_input: "Sorry, we could not handle the scan and go input"
   couldnt_find_order: "We could not find that order"
   couldnt_find_shipment: "We could not find that shipment"
