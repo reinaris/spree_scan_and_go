@@ -15,7 +15,6 @@ module Spree
         when /^H/
           input.gsub("H","")
           if shipment = Spree::Shipment.find_by_number(input)
-            # Since the shipment has no detail page we redirect to the order
             redirect = edit_admin_order_shipment_url(shipment.order, shipment)
           else
             error = t(:couldnt_find_shipment)
