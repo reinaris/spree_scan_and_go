@@ -6,20 +6,22 @@ module Spree
 
         case input
         when /^R/
-          if order = Spree::Order.find_by(number: input)
+          input.gsub("R","")
+          if order = Spree::Order.find_by_number(input)
             redirect = edit_admin_order_path(order)
           else
             error = t(:couldnt_find_order)
           end
         when /^H/
-          if shipment = Spree::Shipment.find_by(number: input)
+          input.gsub("H","")
+          if shipment = Spree::Shipment.find_by_number(input)
             # Since the shipment has no detail page we redirect to the order
-            redirect = edit_admin_order_path(shipment.order)
+            redirect = edit_admin_order_shipment_url(shipment.order, shipment)
           else
             error = t(:couldnt_find_shipment)
           end
         when /@/
-          if user = Spree::User.find_by(email: input)
+          if user = Spree::User.find_by_email(input)
             redirect = edit_admin_user_path(user)
           else
             error = t(:couldnt_find_user)
