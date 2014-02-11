@@ -3,3 +3,4 @@ en:
   couldnt_find_order: "We could not find that order"
   couldnt_find_shipment: "We could not find that shipment"
   couldnt_find_user: "We could not find that user"
+  couldnt_find_product: "We could not find that product"

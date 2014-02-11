@@ -23,7 +23,13 @@ module Spree
             redirect = edit_admin_user_path(user)
           else
             error = t(:couldnt_find_user)
-          end 
+          end
+        when /^[0-9]/
+          if product = Spree::Product.find_by_id(input)
+            redirect = edit_admin_product_path(product)
+          else
+            error = t(:couldnt_find_product)
+          end
         else
           error = t(:couldnt_handle_scan_and_go_input)
         end
