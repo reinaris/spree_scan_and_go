@@ -10,9 +10,9 @@ describe Spree::Admin::ScanAndGoController do
 
       it 'redirects to the product page' do
         spree_get :redirect, { scan_and_go_input: product.id }
-        expect(response).to redirect_to("/admin/products/#{product.permalink}/edit")
+        expect(response).to redirect_to("/admin/products/#{product.slug}/edit")
       end
-    end 
+    end
 
     context 'a order number is given' do
       it 'redirects to the order page' do
