@@ -6,14 +6,12 @@ module Spree
 
         case input
         when /^R/
-          input.gsub("R","")
           if order = Spree::Order.find_by_number(input)
             redirect = edit_admin_order_path(order)
           else
             error = t(:couldnt_find_order)
           end
         when /^H/
-          input.gsub("H","")
           if shipment = Spree::Shipment.find_by_number(input)
             redirect = edit_admin_order_shipment_url(shipment.order, shipment)
           else
