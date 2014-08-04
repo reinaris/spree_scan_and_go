@@ -5,6 +5,12 @@ module Spree
         input = params[:scan_and_go_input]
 
         case input
+        when /^RMA/
+          if rma = Spree::ReturnAuthorization.find_by(number: input)
+            redirect = edit_admin_order_return_authorization_path(rma.order, rma)
+          else
+            error = t(:couldnt_find_rma)
+          end
         when /^R/
           if order = Spree::Order.find_by(number: input)
             redirect = edit_admin_order_path(order)
