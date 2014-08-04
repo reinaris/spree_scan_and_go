@@ -1,41 +1,77 @@
 module Spree
   module Admin
     class ScanAndGoController < Spree::Admin::BaseController
+
+      RULES = {
+        /^R/ => :order,
+        /^H/ => :shipment,
+        /@/ => :user,
+        /^[0-9]/ => :product
+      }
+
       def redirect
         input = params[:scan_and_go_input]
+        error, redirect = nil, nil
 
-        case input
-        when /^R/
-          if order = Spree::Order.find_by(number: input)
-            redirect = edit_admin_order_path(order)
-          else
-            error = t(:couldnt_find_order)
+        rules.each do |matcher, action|
+          if input =~ matcher
+            r = send(action, input)
+            redirect, error = r[:redirect], r[:error]
+            break
           end
-        when /^H/
-          if shipment = Spree::Shipment.find_by(number: input)
-            # Since the shipment has no detail page we redirect to the order
-            redirect = edit_admin_order_path(shipment.order)
-          else
-            error = t(:couldnt_find_shipment)
-          end
-        when /@/
-          if user = Spree::User.find_by(email: input)
-            redirect = edit_admin_user_path(user)
-          else
-            error = t(:couldnt_find_user)
-          end
-        when /^[0-9]/
-          if product = Spree::Product.find_by_id(input)
-            redirect = edit_admin_product_path(product)
-          else
-            error = t(:couldnt_find_product)
-          end
-        else
-          error = t(:couldnt_handle_scan_and_go_input)
         end
+
+        error = t(:couldnt_handle_scan_and_go_input) if error.nil? && redirect.nil?
 
         flash[:error] = error if error
         redirect_to redirect ? redirect : :back
+      end
+
+      private
+
+      def shipment(input)
+        if shipment = Spree::Shipment.find_by(number: input)
+          # Since the shipment has no detail page we redirect to the order
+          redirect = edit_admin_order_path(shipment.order)
+        else
+          error = t(:couldnt_find_shipment)
+        end
+
+        { redirect: redirect, error: error }
+      end
+
+      def order(input)
+        if order = Spree::Order.find_by(number: input)
+          redirect = edit_admin_order_path(order)
+        else
+          error = t(:couldnt_find_order)
+        end
+
+        { redirect: redirect, error: error }
+      end
+
+      def user(input)
+        if user = Spree::User.find_by(email: input)
+          redirect = edit_admin_user_path(user)
+        else
+          error = t(:couldnt_find_user)
+        end
+
+        { redirect: redirect, error: error }
+      end
+
+      def product(input)
+        if product = Spree::Product.find_by_id(input)
+          redirect = edit_admin_product_path(product)
+        else
+          error = t(:couldnt_find_product)
+        end
+
+        { redirect: redirect, error: error }
+      end
+
+      def rules
+        RULES
       end
     end
   end
