@@ -1,5 +1,6 @@
 en:
   couldnt_handle_scan_and_go_input: "Sorry, we could not handle the scan and go input"
+  couldnt_find_rma: "We could not find that return authorization"
   couldnt_find_order: "We could not find that order"
   couldnt_find_shipment: "We could not find that shipment"
   couldnt_find_user: "We could not find that user"
