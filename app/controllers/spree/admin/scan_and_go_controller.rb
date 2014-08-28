@@ -3,6 +3,7 @@ module Spree
     class ScanAndGoController < Spree::Admin::BaseController
 
       RULES = {
+        /^RMA/ => :return_authorization,
         /^R/ => :order,
         /^H/ => :shipment,
         /@/ => :user,
@@ -29,12 +30,11 @@ module Spree
 
       private
 
-      def shipment(input)
-        if shipment = Spree::Shipment.find_by(number: input)
-          # Since the shipment has no detail page we redirect to the order
-          redirect = edit_admin_order_path(shipment.order)
+      def return_authorization(input)
+        if return_authorization = Spree::ReturnAuthorization.find_by(number: input)
+          redirect = edit_admin_order_return_authorization_path(return_authorization.order, return_authorization)
         else
-          error = t(:couldnt_find_shipment)
+          error = t(:couldnt_find_return_authorization)
         end
 
         { redirect: redirect, error: error }
@@ -45,6 +45,18 @@ module Spree
           redirect = edit_admin_order_path(order)
         else
           error = t(:couldnt_find_order)
+        end
+
+        { redirect: redirect, error: error }
+      end
+
+
+      def shipment(input)
+        if shipment = Spree::Shipment.find_by(number: input)
+          # Since the shipment has no detail page we redirect to the order
+          redirect = edit_admin_order_path(shipment.order)
+        else
+          error = t(:couldnt_find_shipment)
         end
 
         { redirect: redirect, error: error }

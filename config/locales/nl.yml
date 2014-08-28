@@ -1,6 +1,6 @@
 nl:
   couldnt_handle_scan_and_go_input: "Sorry, geen resultaten voor je zoekopdracht"
-  couldnt_find_rma: "Retour is niet gevonden"
+  couldnt_find_return_authorization: "Retour is niet gevonden"
   couldnt_find_order: "Bestelling is niet gevonden"
   couldnt_find_shipment: "Verzending is niet gevonden"
   couldnt_find_user: "Gebruiker is niet gevonden"
